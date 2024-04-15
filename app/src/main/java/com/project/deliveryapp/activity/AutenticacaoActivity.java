@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -32,8 +31,7 @@ public class AutenticacaoActivity extends AppCompatActivity {
 
     private EditText campoEmail, campoSenha;
     private Button btAcessar;
-    private Switch tipoAcesso, tipoUsuario;
-    private LinearLayout linerTipoUsuario;
+    private Switch tipoAcesso;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -56,10 +54,8 @@ public class AutenticacaoActivity extends AppCompatActivity {
         tipoAcesso.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked){
-                    linerTipoUsuario.setVisibility(View.VISIBLE);
-                } else {
-                    linerTipoUsuario.setVisibility(View.GONE);
+                if (isChecked) {
+                    startActivity(new Intent(AutenticacaoActivity.this, CadastrarActivity.class));
                 }
             }
         });
@@ -71,33 +67,13 @@ public class AutenticacaoActivity extends AppCompatActivity {
                 String email = campoEmail.getText().toString();
                 String senha = campoSenha.getText().toString();
 
-                if(!email.isEmpty() && !senha.isEmpty()){
-
-                    if(tipoAcesso.isChecked()){
-
-                        firebaseAuth.createUserWithEmailAndPassword(email, senha)
-                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                                        if(task.isSuccessful()){
-                                            Toast.makeText(AutenticacaoActivity.this,
-                                                    "Cadastron realizado com sucesso", Toast.LENGTH_LONG).show();
-                                            abrirTelaHome();
-                                        } else {
-                                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                            Toast.makeText(AutenticacaoActivity.this,
-                                                    "Error ao criar conta,Por favor tente novamente!", Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                });
-                    } else {
+                if (!email.isEmpty() && !senha.isEmpty()) {
 
                         firebaseAuth.signInWithEmailAndPassword(email, senha)
                                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if(task.isSuccessful()){
+                                        if (task.isSuccessful()) {
                                             Toast.makeText(AutenticacaoActivity.this,
                                                     "Logado com sucesso!", Toast.LENGTH_LONG).show();
                                             abrirTelaHome();
@@ -107,9 +83,8 @@ public class AutenticacaoActivity extends AppCompatActivity {
                                         }
                                     }
                                 });
-                    }
                 } else {
-                    if(email.isEmpty()) {
+                    if (email.isEmpty()) {
                         Toast.makeText(AutenticacaoActivity.this,
                                 "Informer o Email", Toast.LENGTH_LONG).show();
                     } else {
@@ -121,23 +96,21 @@ public class AutenticacaoActivity extends AppCompatActivity {
         });
     }
 
-    private void inicializaComponentes(){
+    private void inicializaComponentes() {
         campoEmail = (EditText) findViewById(R.id.campoEmail);
         campoSenha = (EditText) findViewById(R.id.campoSenha);
         btAcessar = (Button) findViewById(R.id.btAcessar);
         tipoAcesso = (Switch) findViewById(R.id.tipoAcesso);
-        tipoUsuario = (Switch) findViewById(R.id.tipoUsuario);
-        linerTipoUsuario = (LinearLayout) findViewById(R.id.linearTipoUsuario);
     }
 
-    private void verificarUsuarioLogado(){
+    private void verificarUsuarioLogado() {
         FirebaseUser usuario = firebaseAuth.getCurrentUser();
-        if(usuario != null){
+        if (usuario != null) {
             abrirTelaHome();
         }
     }
 
-    private void abrirTelaHome(){
+    private void abrirTelaHome() {
         startActivity(new Intent(AutenticacaoActivity.this, HomeActivity.class));
     }
 }

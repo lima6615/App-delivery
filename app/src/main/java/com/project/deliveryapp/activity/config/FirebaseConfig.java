@@ -8,31 +8,31 @@ public class FirebaseConfig {
 
     private static FirebaseFirestore firestore;
     private static FirebaseAuth auth;
-    private static FirebaseStorage strorage;
+    private static FirebaseStorage storage;
 
-    public static String getIdUsuario(){
+    public static String getIdUsuario() {
         FirebaseAuth fireAuth = getAuth();
         return fireAuth.getCurrentUser().getUid();
     }
 
-    public static FirebaseFirestore getFirestore(){
-        if(firestore == null){
+    public static FirebaseFirestore getFirestore() {
+        if (firestore == null) {
             firestore = FirebaseFirestore.getInstance();
         }
         return firestore;
     }
 
-    public static FirebaseAuth getAuth(){
-        if(auth == null){
+    public static FirebaseAuth getAuth() {
+        if (auth == null) {
             auth = FirebaseAuth.getInstance();
         }
         return auth;
     }
 
-    public static FirebaseStorage getStrorage(){
-        if(strorage == null){
-            strorage = FirebaseStorage.getInstance();
+    public static FirebaseStorage getStorage() {
+        if (storage == null) {
+            storage = FirebaseStorage.getInstance();
         }
-        return strorage;
+        return storage;
     }
 }

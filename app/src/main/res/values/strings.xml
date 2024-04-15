@@ -9,4 +9,5 @@
     <string name="nome_usuario">Usuário</string>
     <string name="nome_empresa">Empresa</string>
     <string name="botao_login">ACESSAR</string>
+    <string name="botao_cadastrar">SALVAR</string>
 </resources>

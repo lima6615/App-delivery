@@ -14,8 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="212dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
+        android:autofillHints=""
         android:background="@drawable/bg_edit_text"
         android:ems="10"
         android:fontFamily="sans-serif"
@@ -26,8 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints=""
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
         tools:ignore="VisualLintTextFieldSize" />
 
     <EditText
@@ -53,7 +53,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,57 +91,12 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearTipoUsuario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/campoSenha"
-        android:visibility="gone"
-        tools:visibility="visible">
-
-        <TextView
-            android:id="@+id/usuario"
-            android:layout_width="77dp"
-            android:layout_height="wrap_content"
-            android:backgroundTintMode="add"
-            android:text="@string/nome_usuario"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
-
-        <Switch
-            android:id="@+id/tipoUsuario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:backgroundTint="#7C1F1F"
-            android:textColorHighlight="#CA0707"
-            android:textSize="16sp"
-            tools:ignore="TouchTargetSizeCheck,UseSwitchCompatOrMaterialXml" />
-
-        <TextView
-            android:id="@+id/empresa"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:text="@string/nome_empresa"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
     <Button
         android:id="@+id/btAcessar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:padding="16dp"
         android:text="@string/botao_login"
@@ -156,15 +111,15 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="148dp"
         android:text="@string/titulo_login"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/campoEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
