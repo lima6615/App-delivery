@@ -12,10 +12,11 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String nome, String email, String tipoConta) {
+    public User(String nome, String email, String senha, String tipoConta) {
         this.nome = nome;
         this.email = email;
         this.tipoConta = tipoConta;
+        this.senha = senha;
     }
 
     public String getNome() {

@@ -1,7 +1,5 @@
 package com.project.deliveryapp.activity;
 
-import static com.google.firebase.appcheck.internal.util.Logger.TAG;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,18 +22,24 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.project.deliveryapp.R;
 import com.project.deliveryapp.activity.config.FirebaseConfig;
 import com.project.deliveryapp.activity.entities.User;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 public class CadastrarActivity extends AppCompatActivity {
 
     private EditText textoNome, textoEmail, textoSenha;
     private RadioButton radioUsuario, radioEmpresa;
-
     private Button botaoSalvar;
+
+    private User user;
 
     private FirebaseFirestore firestore;
 
@@ -69,9 +73,16 @@ public class CadastrarActivity extends AppCompatActivity {
                     tipoConta = "empresa";
                 }
 
-                User user = new User(nome, email, tipoConta);
-                insertUsuario(user);
-                autenticarUsuario(user.getEmail(), senha);
+                String hashSenha = BCrypt.withDefaults().hashToString(12, senha.toCharArray());
+                user = new User(nome, email, hashSenha, tipoConta);
+
+                if(nome.isEmpty() || email.isEmpty() || senha.isEmpty() || tipoConta.isEmpty()){
+
+                    Toast.makeText(CadastrarActivity.this,
+                            "Todos os campos são obrigatórios !", Toast.LENGTH_LONG).show();
+                } else {
+                    cadastrarUsuario(user.getEmail(), senha);
+                }
             }
         });
     }
@@ -85,47 +96,63 @@ public class CadastrarActivity extends AppCompatActivity {
         botaoSalvar = (Button) findViewById(R.id.btSalvar);
     }
 
-    private void insertUsuario(User user) {
-
-        firestore = FirebaseConfig.getFirestore();
-
-        firestore.collection("usuario").add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(CadastrarActivity.this,
-                                "Conta criada com sucesso", Toast.LENGTH_LONG).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(CadastrarActivity.this,
-                                "Falhar ao criar conta", Toast.LENGTH_LONG).show();
-                    }
-                });
-    }
-
-    private void abrirTelaHome() {
-        startActivity(new Intent(CadastrarActivity.this, AutenticacaoActivity.class));
-    }
-
-    private void autenticarUsuario(String email, String senha) {
+    private void cadastrarUsuario(String email, String senha) {
 
         firebaseAuth = FirebaseConfig.getAuth();
         firebaseAuth.createUserWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
                         if (task.isSuccessful()) {
-                            abrirTelaHome();
-                        } else {
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+
+                            salvarDadosUsuario(user);
+
                             Toast.makeText(CadastrarActivity.this,
-                                    "Error ao criar conta,Por favor tente novamente!", Toast.LENGTH_LONG).show();
+                                    "Cadastro Criado com Sucesso!", Toast.LENGTH_LONG).show();
+
+                            abrirTelaLogin();
+
+                        } else {
+                            String error = "";
+                            try {
+                                throw task.getException();
+                            } catch (FirebaseAuthWeakPasswordException e) {
+                                error = "Digite uma senha mais forte!";
+                            } catch (FirebaseAuthInvalidCredentialsException e) {
+                                error = "Por favor, digite um e-mail valido!";
+                            } catch (FirebaseAuthUserCollisionException e) {
+                                error = "Esta conta já foi cadastrafa!";
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            Toast.makeText(CadastrarActivity.this,
+                                    error, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
+    }
+
+    private void salvarDadosUsuario(User user) {
+
+        firestore = FirebaseConfig.getFirestore();
+        String usuarioId = FirebaseConfig.getAuth().getCurrentUser().getUid();
+
+        DocumentReference documentReference = firestore.collection("usuario").document(usuarioId);
+        documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d("DB", "Sucesso ao salvar os dados");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("DB", "Error ao salvar os dados " + e.getMessage());
+            }
+        });
+    }
+
+    private void abrirTelaLogin() {
+        startActivity(new Intent(CadastrarActivity.this, AutenticacaoActivity.class));
     }
 }

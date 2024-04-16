@@ -24,8 +24,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.project.deliveryapp.R;
 import com.project.deliveryapp.activity.config.FirebaseConfig;
+import com.project.deliveryapp.activity.entities.User;
 
 public class AutenticacaoActivity extends AppCompatActivity {
 
@@ -33,6 +39,8 @@ public class AutenticacaoActivity extends AppCompatActivity {
     private Button btAcessar;
     private Switch tipoAcesso;
     private FirebaseAuth firebaseAuth;
+
+    private FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +84,7 @@ public class AutenticacaoActivity extends AppCompatActivity {
                                         if (task.isSuccessful()) {
                                             Toast.makeText(AutenticacaoActivity.this,
                                                     "Logado com sucesso!", Toast.LENGTH_LONG).show();
-                                            abrirTelaHome();
+                                            abrirTelaHome(email);
                                         } else {
                                             Toast.makeText(AutenticacaoActivity.this,
                                                     "Erro ao Efetuar Login!", Toast.LENGTH_LONG).show();
@@ -106,11 +114,11 @@ public class AutenticacaoActivity extends AppCompatActivity {
     private void verificarUsuarioLogado() {
         FirebaseUser usuario = firebaseAuth.getCurrentUser();
         if (usuario != null) {
-            abrirTelaHome();
+            abrirTelaHome(usuario.getEmail());
         }
     }
 
-    private void abrirTelaHome() {
+    private void abrirTelaHome(String email) {
         startActivity(new Intent(AutenticacaoActivity.this, HomeActivity.class));
     }
 }
