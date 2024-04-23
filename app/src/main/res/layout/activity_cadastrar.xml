@@ -21,7 +21,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/campoNomeCadastro"
@@ -40,7 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="VisualLintTextFieldSize" />
+        tools:ignore="Autofill,HardcodedText,VisualLintTextFieldSize" />
 
     <EditText
         android:id="@+id/campoEmailCadastro"
@@ -60,7 +61,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/campoNomeCadastro"
         android:autofillHints=""
-        tools:ignore="VisualLintTextFieldSize" />
+        tools:ignore="HardcodedText,VisualLintTextFieldSize" />
 
     <EditText
         android:id="@+id/campoSenhaCadastro"
@@ -80,7 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/campoEmailCadastro"
         android:autofillHints=""
-        tools:ignore="VisualLintTextFieldSize" />
+        tools:ignore="HardcodedText,VisualLintTextFieldSize" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -100,7 +101,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="RtlHardcoded,UselessParent">
 
             <RadioButton
                 android:id="@+id/radioEmpresa"
@@ -109,7 +111,8 @@
                 android:text="Empresa"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
 
             <RadioButton
                 android:id="@+id/radioUsuario"
@@ -120,21 +123,35 @@
                 android:text="Usuário"
                 android:textAlignment="viewStart"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
         </RadioGroup>
     </LinearLayout>
 
     <Button
-        android:id="@+id/btSalvar"
+        android:id="@+id/btSalvarProduto"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/botao_cadastrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        tools:ignore="VisualLintButtonSize" />
+
+    <Button
+        android:id="@+id/btCancelar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/botao_cancelar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btSalvarProduto"
         tools:ignore="VisualLintButtonSize" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

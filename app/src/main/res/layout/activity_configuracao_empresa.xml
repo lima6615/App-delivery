@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.ConfiguracaoEmpresaActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toobarConfiguracaoEmpresa"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/titulo_empresa_configuracao"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/toobarConfiguracaoEmpresa"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@id/toobarConfiguracaoEmpresa"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="@id/toobarConfiguracaoEmpresa"
+        app:layout_constraintTop_toTopOf="@id/toobarConfiguracaoEmpresa"
+        app:srcCompat="@drawable/ic_arrow_back_24"
+        tools:ignore="ContentDescription" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imagePerfilEmpresa"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="78dp"
+        android:src="@drawable/perfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ImageContrastCheck" />
+
+    <EditText
+        android:id="@+id/editProdutoNome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_edit_text"
+        android:ems="10"
+        android:hint="Nome empresa"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:paddingLeft="5dp"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagePerfilEmpresa"
+        tools:ignore="Autofill,HardcodedText,RtlHardcoded,RtlSymmetry,VisualLintTextFieldSize" />
+
+    <EditText
+        android:id="@+id/editProdutoDescricao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_edit_text"
+        android:ems="10"
+        android:hint="Categoria"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:paddingLeft="5dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editProdutoNome"
+        tools:ignore="Autofill,HardcodedText,RtlHardcoded,RtlSymmetry,VisualLintTextFieldSize" />
+
+    <EditText
+        android:id="@+id/editProdutoPreco"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_edit_text"
+        android:ems="10"
+        android:hint="Tempo entregar"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:paddingLeft="5dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editProdutoDescricao"
+        tools:ignore="Autofill,HardcodedText,RtlHardcoded,RtlSymmetry,VisualLintTextFieldSize" />
+
+    <EditText
+        android:id="@+id/editEmpresaTaxa"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_edit_text"
+        android:ems="10"
+        android:hint="Taxa entregar"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:paddingLeft="5dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editProdutoPreco"
+        tools:ignore="Autofill,HardcodedText,RtlHardcoded,RtlSymmetry,VisualLintTextFieldSize" />
+
+    <Button
+        android:id="@+id/btSalvarProduto"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/botao_cadastrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editEmpresaTaxa"
+        tools:ignore="VisualLintButtonSize" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,33 +5,58 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.HomeActivity">
+    tools:context=".activity.EmpresaActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarHome"
+        android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imgLogoutHome"
+        android:id="@+id/imgLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@id/toolbarHome"
+        app:layout_constraintEnd_toEndOf="@id/toolbar"
         app:layout_constraintHorizontal_bias="0.958"
-        app:layout_constraintStart_toStartOf="@id/toolbarHome"
-        app:layout_constraintTop_toTopOf="@id/toolbarHome"
+        app:layout_constraintStart_toStartOf="@id/toolbar"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
         app:srcCompat="@drawable/ic_logout_24"
         tools:ignore="ContentDescription" />
 
+    <ImageView
+        android:id="@+id/imageAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@id/toolbar"
+        app:layout_constraintHorizontal_bias="0.782"
+        app:layout_constraintStart_toStartOf="@id/toolbar"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        app:srcCompat="@drawable/ic_adicionar_24dp"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/titulo_empresa"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerEmpresas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="70dp"
@@ -40,39 +65,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/titulo_cliente"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
-        android:id="@+id/imgConfigHome"
+        android:id="@+id/imgConfig"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@id/toolbarHome"
+        app:layout_constraintEnd_toEndOf="@id/toolbar"
         app:layout_constraintHorizontal_bias="0.873"
-        app:layout_constraintStart_toStartOf="@id/toolbarHome"
-        app:layout_constraintTop_toTopOf="@id/toolbarHome"
+        app:layout_constraintStart_toStartOf="@id/toolbar"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
         app:srcCompat="@drawable/ic_settings_24" />
-
-    <ImageView
-        android:id="@+id/imgBuscarHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@id/toolbarHome"
-        app:layout_constraintHorizontal_bias="0.788"
-        app:layout_constraintStart_toStartOf="@id/toolbarHome"
-        app:layout_constraintTop_toTopOf="@id/toolbarHome"
-        app:srcCompat="@drawable/ic_search_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

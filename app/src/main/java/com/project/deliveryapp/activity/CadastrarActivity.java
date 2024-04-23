@@ -37,12 +37,9 @@ public class CadastrarActivity extends AppCompatActivity {
 
     private EditText textoNome, textoEmail, textoSenha;
     private RadioButton radioUsuario, radioEmpresa;
-    private Button botaoSalvar;
-
+    private Button botaoSalvar, botaoCancelar;
     private User user;
-
     private FirebaseFirestore firestore;
-
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -76,13 +73,20 @@ public class CadastrarActivity extends AppCompatActivity {
                 String hashSenha = BCrypt.withDefaults().hashToString(12, senha.toCharArray());
                 user = new User(nome, email, hashSenha, tipoConta);
 
-                if(nome.isEmpty() || email.isEmpty() || senha.isEmpty() || tipoConta.isEmpty()){
+                if (nome.isEmpty() || email.isEmpty() || senha.isEmpty() || tipoConta.isEmpty()) {
 
                     Toast.makeText(CadastrarActivity.this,
                             "Todos os campos são obrigatórios !", Toast.LENGTH_LONG).show();
                 } else {
                     cadastrarUsuario(user.getEmail(), senha);
                 }
+            }
+        });
+
+        botaoCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                abrirTelaLogin();
             }
         });
     }
@@ -93,7 +97,8 @@ public class CadastrarActivity extends AppCompatActivity {
         textoSenha = (EditText) findViewById(R.id.campoSenhaCadastro);
         radioUsuario = (RadioButton) findViewById(R.id.radioUsuario);
         radioEmpresa = (RadioButton) findViewById(R.id.radioEmpresa);
-        botaoSalvar = (Button) findViewById(R.id.btSalvar);
+        botaoSalvar = (Button) findViewById(R.id.btSalvarProduto);
+        botaoCancelar = (Button) findViewById(R.id.btCancelar);
     }
 
     private void cadastrarUsuario(String email, String senha) {
@@ -136,7 +141,7 @@ public class CadastrarActivity extends AppCompatActivity {
     private void salvarDadosUsuario(User user) {
 
         firestore = FirebaseConfig.getFirestore();
-        String usuarioId = FirebaseConfig.getAuth().getCurrentUser().getUid();
+        String usuarioId = FirebaseConfig.getIdUsuario();
 
         DocumentReference documentReference = firestore.collection("usuario").document(usuarioId);
         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -154,5 +159,6 @@ public class CadastrarActivity extends AppCompatActivity {
 
     private void abrirTelaLogin() {
         startActivity(new Intent(CadastrarActivity.this, AutenticacaoActivity.class));
+        finish();
     }
 }

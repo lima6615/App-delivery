@@ -1,7 +1,5 @@
 package com.project.deliveryapp.activity;
 
-import static com.google.firebase.appcheck.internal.util.Logger.TAG;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,26 +18,23 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.project.deliveryapp.R;
 import com.project.deliveryapp.activity.config.FirebaseConfig;
-import com.project.deliveryapp.activity.entities.User;
 
 public class AutenticacaoActivity extends AppCompatActivity {
 
     private EditText campoEmail, campoSenha;
     private Button btAcessar;
     private Switch tipoAcesso;
+    private String tipoConta;
     private FirebaseAuth firebaseAuth;
-
     private FirebaseFirestore firestore;
 
     @Override
@@ -54,8 +49,8 @@ public class AutenticacaoActivity extends AppCompatActivity {
         });
 
         inicializaComponentes();
+        firestore = FirebaseConfig.getFirestore();
         firebaseAuth = FirebaseConfig.getAuth();
-        firebaseAuth.signOut();
 
         verificarUsuarioLogado();
 
@@ -77,20 +72,20 @@ public class AutenticacaoActivity extends AppCompatActivity {
 
                 if (!email.isEmpty() && !senha.isEmpty()) {
 
-                        firebaseAuth.signInWithEmailAndPassword(email, senha)
-                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(AutenticacaoActivity.this,
-                                                    "Logado com sucesso!", Toast.LENGTH_LONG).show();
-                                            abrirTelaHome(email);
-                                        } else {
-                                            Toast.makeText(AutenticacaoActivity.this,
-                                                    "Erro ao Efetuar Login!", Toast.LENGTH_LONG).show();
-                                        }
+                    firebaseAuth.signInWithEmailAndPassword(email, senha)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(AutenticacaoActivity.this,
+                                                "Logado com sucesso!", Toast.LENGTH_LONG).show();
+                                        findByid();
+                                    } else {
+                                        Toast.makeText(AutenticacaoActivity.this,
+                                                "Erro ao Efetuar Login!", Toast.LENGTH_LONG).show();
                                     }
-                                });
+                                }
+                            });
                 } else {
                     if (email.isEmpty()) {
                         Toast.makeText(AutenticacaoActivity.this,
@@ -114,11 +109,35 @@ public class AutenticacaoActivity extends AppCompatActivity {
     private void verificarUsuarioLogado() {
         FirebaseUser usuario = firebaseAuth.getCurrentUser();
         if (usuario != null) {
-            abrirTelaHome(usuario.getEmail());
+            abrirTelaHome(tipoConta);
         }
     }
 
-    private void abrirTelaHome(String email) {
-        startActivity(new Intent(AutenticacaoActivity.this, HomeActivity.class));
+    private void abrirTelaHome(String tipoConta) {
+        if ("usuario".equals(tipoConta)) {
+            startActivity(new Intent(AutenticacaoActivity.this, HomeActivity.class));
+        } else {
+            startActivity(new Intent(AutenticacaoActivity.this, EmpresaActivity.class));
+        }
+    }
+
+    private void findByid() {
+        String id = FirebaseConfig.getIdUsuario();
+        firestore.collection("usuario")
+                .document(id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        tipoConta = task.getResult().getString("tipoConta");
+                        abrirTelaHome(tipoConta);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("Error", "Erro ao bucar dados do usuario: " + e.getMessage());
+                    }
+                });
     }
 }
