@@ -1,4 +1,4 @@
-package com.project.deliveryapp.activity;
+package com.project.deliveryapp.activity.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -144,13 +144,18 @@ public class ConfiguracaoEmpresaActivity extends AppCompatActivity {
                     imagem.compress(Bitmap.CompressFormat.JPEG, 70, baos);
                     byte[] dadosImagem = baos.toByteArray();
 
-                    final StorageReference imagemRef = storageReference.child("imagens").child("empresa").child(usuarioId + ".jpeg");
+                    final StorageReference imagemRef = storageReference
+                            .child("imagens")
+                            .child("empresa")
+                            .child(usuarioId + ".jpeg");
 
                     UploadTask uploadTask = imagemRef.putBytes(dadosImagem);
                     uploadTask.addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ConfiguracaoEmpresaActivity.this, "Erro ao fazer upload da imagem", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ConfiguracaoEmpresaActivity.this,
+                                    "Erro ao fazer upload da imagem",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -195,7 +200,8 @@ public class ConfiguracaoEmpresaActivity extends AppCompatActivity {
     private void recuperarDadosEmpresa() {
 
         firestore.collection("empresa")
-                .document(usuarioId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                .document(usuarioId).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.getResult() != null) {

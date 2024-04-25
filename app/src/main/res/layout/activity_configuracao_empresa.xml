@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.ConfiguracaoEmpresaActivity">
+    tools:context=".activity.activity.ConfiguracaoEmpresaActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toobarConfiguracaoEmpresa"

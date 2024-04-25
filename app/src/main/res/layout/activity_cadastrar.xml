@@ -6,7 +6,7 @@
     android:background="@drawable/plano_fundo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.CadastrarActivity">
+    tools:context=".activity.activity.CadastrarActivity">
 
     <TextView
         android:id="@+id/textView"

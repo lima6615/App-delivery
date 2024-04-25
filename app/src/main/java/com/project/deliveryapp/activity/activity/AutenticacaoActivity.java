@@ -1,4 +1,4 @@
-package com.project.deliveryapp.activity;
+package com.project.deliveryapp.activity.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

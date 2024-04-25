@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/plano_fundo"
     android:orientation="vertical"
-    tools:context=".activity.AutenticacaoActivity">
+    tools:context=".activity.activity.AutenticacaoActivity">
 
     <EditText
         android:id="@+id/campoEmail"

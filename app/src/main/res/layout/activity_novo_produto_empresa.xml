@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.NovoProdutoEmpresaActivity">
+    tools:context=".activity.activity.NovoProdutoEmpresaActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toobarNovoProduto"
@@ -93,7 +93,7 @@
         android:background="@drawable/bg_edit_text"
         android:ems="10"
         android:hint="Preço:"
-        android:inputType="text"
+        android:inputType="number|numberDecimal"
         android:minHeight="48dp"
         android:paddingLeft="5dp"
         android:textSize="20sp"
