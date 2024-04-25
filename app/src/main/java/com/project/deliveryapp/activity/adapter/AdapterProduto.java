@@ -9,13 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.project.deliveryapp.R;
+import com.project.deliveryapp.activity.config.FirebaseConfig;
 import com.project.deliveryapp.activity.entities.Produto;
 
 import java.util.List;
 
 public class AdapterProduto extends RecyclerView.Adapter<AdapterProduto.MyViewHolder> {
-
+    private FirebaseFirestore firestore = FirebaseConfig.getFirestore();
     private List<Produto> produtos;
     private Context context;
 

@@ -51,7 +51,7 @@ public class AutenticacaoActivity extends AppCompatActivity {
         inicializaComponentes();
         firestore = FirebaseConfig.getFirestore();
         firebaseAuth = FirebaseConfig.getAuth();
-
+        firebaseAuth.signOut();
         verificarUsuarioLogado();
 
         tipoAcesso.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

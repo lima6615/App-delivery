@@ -78,7 +78,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity {
         String preco = editProdutoPreco.getText().toString();
 
         if (!nome.isEmpty() && !descricao.isEmpty() && !preco.isEmpty()) {
-            Produto produto = new Produto(usuarioId, nome, descricao, Double.parseDouble(preco));
+            Produto produto = new Produto(usuarioId, nome, descricao, preco);
             salvarProduto(produto);
             exibirMensagem("Produto cadastrado com sucesso");
             finish();
