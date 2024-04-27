@@ -15,9 +15,12 @@
         android:theme="@style/Theme.DeliveryApp"
         tools:targetApi="31">
         <activity
+            android:name=".activity.activity.ConfiguracaoUsuarioActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.activity.CardapioActivity"
             android:exported="false"
-            android:parentActivityName=".activity.activity.HomeActivity"/>
+            android:parentActivityName=".activity.activity.HomeActivity" />
         <activity
             android:name=".activity.activity.NovoProdutoEmpresaActivity"
             android:exported="false" />

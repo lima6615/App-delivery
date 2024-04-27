@@ -2,17 +2,17 @@ package com.project.deliveryapp.activity.entities;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class Usuario implements Serializable {
 
     private String nome;
     private String email;
     private String senha;
     private String tipoConta;
 
-    public User() {
+    public Usuario() {
     }
 
-    public User(String nome, String email, String senha, String tipoConta) {
+    public Usuario(String nome, String email, String senha, String tipoConta) {
         this.nome = nome;
         this.email = email;
         this.tipoConta = tipoConta;

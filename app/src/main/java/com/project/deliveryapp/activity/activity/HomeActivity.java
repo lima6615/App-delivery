@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -17,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -38,6 +41,8 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerEmpresas;
     private List<Empresa> empresas = new ArrayList<>();
     private AdapterEmpresa adapterEmpresa;
+    private String idUsuario = null;
+    private boolean verificarEndereco = false;
     private FirebaseFirestore firestore;
 
     @Override
@@ -53,6 +58,7 @@ public class HomeActivity extends AppCompatActivity {
 
         firestore = FirebaseConfig.getFirestore();
         firebaseAuth = FirebaseConfig.getAuth();
+        idUsuario = FirebaseConfig.getIdUsuario();
         inicializacaoComponentes();
         initRecyclerView();
         imgLogoutHome.setOnClickListener(new View.OnClickListener() {
@@ -62,16 +68,29 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        imgConfigHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                abrirTelaConfiguracaoUsuario();
+            }
+        });
+
         recuperarEmpresas();
+        recuperarEnderecoUsuario();
 
         recyclerEmpresas.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, recyclerEmpresas, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Empresa empresaSelecionada = empresas.get(position);
-                        Intent intent = new Intent(HomeActivity.this, CardapioActivity.class);
-                        intent.putExtra("empresa", empresaSelecionada);
-                        startActivity(intent);
+                        if (verificarEndereco) {
+                            Empresa empresaSelecionada = empresas.get(position);
+                            Intent intent = new Intent(HomeActivity.this, CardapioActivity.class);
+                            intent.putExtra("empresa", empresaSelecionada);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(HomeActivity.this,
+                                    "Para realizar pedidos e necessário cadastrar um endereço", Toast.LENGTH_LONG).show();
+                        }
                     }
 
                     @Override
@@ -136,5 +155,32 @@ public class HomeActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void recuperarEnderecoUsuario() {
+
+        firestore.collection("endereco")
+                .document(idUsuario).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.getData() != null) {
+                            verificarEndereco = true;
+                            Log.d("DB", "Sucesso ao Buscar endereço do usuario: "
+                                    + documentSnapshot.getData());
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        verificarEndereco = false;
+                        Log.d("Error", "Erro ao Buscar dados do usuario: " + e.getMessage());
+                    }
+                });
+    }
+
+
+    private void abrirTelaConfiguracaoUsuario() {
+        startActivity(new Intent(HomeActivity.this, ConfiguracaoUsuarioActivity.class));
     }
 }

@@ -29,7 +29,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.project.deliveryapp.R;
 import com.project.deliveryapp.activity.config.FirebaseConfig;
-import com.project.deliveryapp.activity.entities.User;
+import com.project.deliveryapp.activity.entities.Usuario;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
@@ -38,7 +38,7 @@ public class CadastrarActivity extends AppCompatActivity {
     private EditText textoNome, textoEmail, textoSenha;
     private RadioButton radioUsuario, radioEmpresa;
     private Button botaoSalvar, botaoCancelar;
-    private User user;
+    private Usuario usuario;
     private FirebaseFirestore firestore;
     private FirebaseAuth firebaseAuth;
 
@@ -71,14 +71,14 @@ public class CadastrarActivity extends AppCompatActivity {
                 }
 
                 String hashSenha = BCrypt.withDefaults().hashToString(12, senha.toCharArray());
-                user = new User(nome, email, hashSenha, tipoConta);
+                usuario = new Usuario(nome, email, hashSenha, tipoConta);
 
                 if (nome.isEmpty() || email.isEmpty() || senha.isEmpty() || tipoConta.isEmpty()) {
 
                     Toast.makeText(CadastrarActivity.this,
                             "Todos os campos são obrigatórios !", Toast.LENGTH_LONG).show();
                 } else {
-                    cadastrarUsuario(user.getEmail(), senha);
+                    cadastrarUsuario(usuario.getEmail(), senha);
                 }
             }
         });
@@ -110,7 +110,7 @@ public class CadastrarActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            salvarDadosUsuario(user);
+                            salvarDadosUsuario(usuario);
 
                             Toast.makeText(CadastrarActivity.this,
                                     "Cadastro Criado com Sucesso!", Toast.LENGTH_LONG).show();
@@ -138,13 +138,13 @@ public class CadastrarActivity extends AppCompatActivity {
                 });
     }
 
-    private void salvarDadosUsuario(User user) {
+    private void salvarDadosUsuario(Usuario usuario) {
 
         firestore = FirebaseConfig.getFirestore();
         String usuarioId = FirebaseConfig.getIdUsuario();
 
         DocumentReference documentReference = firestore.collection("usuario").document(usuarioId);
-        documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+        documentReference.set(usuario).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Log.d("DB", "Sucesso ao salvar os dados");
