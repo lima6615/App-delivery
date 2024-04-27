@@ -4,6 +4,7 @@
     <string name="titulo_cliente">Ifood</string>
     <string name="titulo_empresa">Ifood - Empresa</string>
     <string name="titulo_novo_produto">Novo Produto</string>
+    <string name="titulo_cardapio">Cardápio</string>
     <string name="titulo_empresa_configuracao">Configuração Empresa</string>
     <string name="titulo_login">LOGIN</string>
     <string name="nome_email">E-mail:</string>

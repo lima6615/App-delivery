@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,16 +15,20 @@
         android:theme="@style/Theme.DeliveryApp"
         tools:targetApi="31">
         <activity
+            android:name=".activity.activity.CardapioActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.activity.HomeActivity"/>
+        <activity
             android:name=".activity.activity.NovoProdutoEmpresaActivity"
             android:exported="false" />
         <activity
             android:name=".activity.activity.ConfiguracaoEmpresaActivity"
             android:exported="false"
-            android:parentActivityName=".activity.activity.EmpresaActivity"/>
+            android:parentActivityName=".activity.activity.EmpresaActivity" />
         <activity
             android:name=".activity.activity.EmpresaActivity"
             android:exported="false"
-            android:parentActivityName=".activity.activity.EmpresaActivity"/>
+            android:parentActivityName=".activity.activity.EmpresaActivity" />
         <activity
             android:name=".activity.activity.CadastrarActivity"
             android:exported="false" />

@@ -108,7 +108,7 @@ public class ConfiguracaoEmpresaActivity extends AppCompatActivity {
         String taxa = editEmpresaTaxa.getText().toString();
         String tempo = editEmpresaTempo.getText().toString();
 
-        if (!nome.isEmpty() && !categoria.isEmpty() && !taxa.isEmpty() && !tempo.isEmpty()) {
+        if (!nome.isEmpty() && !categoria.isEmpty() && !taxa.isEmpty() && !tempo.isEmpty() && urlImagemSelecionada != null) {
             Empresa empresa = new Empresa(usuarioId, urlImagemSelecionada, nome, tempo, categoria, taxa);
             insertEmpresa(empresa);
             exibirMensagem("Empresa cadastrada com sucesso");

@@ -41,9 +41,9 @@ public class EmpresaActivity extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private ImageView imglogout, imgAdd, imgConfig;
     private AdapterProduto adapterProduto;
-    private String usuarioId = null;
     private List<Produto> produtos = new ArrayList<>();
     private RecyclerView recyclerProdutos;
+    private String usuarioId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,12 +142,11 @@ public class EmpresaActivity extends AppCompatActivity {
                             produtos.clear();
                             for (DocumentSnapshot query : value.getDocuments()) {
                                 Produto produto = new Produto();
-                                produto.setId(query.getId());
-                                produto.setUsuarioId(query.get("usuarioId").toString());
+                                //produto.setId(query.getId());
+                                produto.setUsuarioId(query.getId().toString());
                                 produto.setNome(query.get("nome").toString());
                                 produto.setDescricao(query.get("descricao").toString());
-                                String price = query.get("price").toString();
-                                produto.setPrice(price);
+                                produto.setPrice(query.get("price").toString());
                                 produtos.add(produto);
                             }
                             adapterProduto.notifyDataSetChanged();
@@ -162,7 +161,7 @@ public class EmpresaActivity extends AppCompatActivity {
 
     private void deleteProduto(Produto produto) {
         DocumentReference reference = firestore.collection("produto")
-                .document(produto.getId());
+                .document(produto.getUsuarioId());
         reference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {

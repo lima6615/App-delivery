@@ -54,6 +54,12 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity {
             }
         });
 
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("produto")) {
+            Produto produto = (Produto) intent.getSerializableExtra("produto");
+            camposPreenchido(produto);
+        }
+
         botaoProdutoSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +67,6 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void inicializacaoComponentes() {
         imgVoltar = (ImageView) findViewById(R.id.imageVoltar);
@@ -92,10 +97,17 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity {
                 texto, Toast.LENGTH_SHORT).show();
     }
 
+    private void camposPreenchido(Produto produto) {
+        editProdutoNome.setText(produto.getNome());
+        editProdutoDescricao.setText(produto.getDescricao());
+        editProdutoPreco.setText(produto.getPrice());
+    }
+
     private void salvarProduto(Produto produto) {
 
         firestore.collection("produto")
-                .add(produto).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                .add(produto)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d("DB", "Produto cadastrado com sucesso:  " + documentReference.toString());

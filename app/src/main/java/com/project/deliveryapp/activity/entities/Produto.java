@@ -8,24 +8,16 @@ public class Produto implements Serializable {
     private String nome;
     private String descricao;
     private String price;
-    private String usuarioId;
+
 
     public Produto() {
     }
 
-    public Produto(String usuarioId, String nome, String descricao, String price) {
-        this.usuarioId = usuarioId;
+    public Produto(String id, String nome, String descricao, String price) {
+        this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.price = price;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -53,10 +45,10 @@ public class Produto implements Serializable {
     }
 
     public String getUsuarioId() {
-        return usuarioId;
+        return id;
     }
 
-    public void setUsuarioId(String usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setUsuarioId(String id) {
+        this.id = id;
     }
 }
