@@ -12,7 +12,7 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="112dp"
         android:text="CRIAR CONTA"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -43,13 +43,35 @@
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:ignore="Autofill,HardcodedText,VisualLintTextFieldSize" />
 
+
+    <EditText
+        android:id="@+id/campoTelefoneCadastro"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/bg_edit_text"
+        android:ems="10"
+        android:hint="Telefone:"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/campoNomeCadastro"
+        tools:ignore="Autofill,HardcodedText,VisualLintTextFieldSize" />
+
     <EditText
         android:id="@+id/campoEmailCadastro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
+        android:autofillHints=""
         android:background="@drawable/bg_edit_text"
         android:ems="10"
         android:hint="E-mail:"
@@ -58,9 +80,9 @@
         android:padding="10dp"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/campoNomeCadastro"
-        android:autofillHints=""
+        app:layout_constraintTop_toBottomOf="@+id/campoTelefoneCadastro"
         tools:ignore="HardcodedText,VisualLintTextFieldSize" />
 
     <EditText
@@ -68,8 +90,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
+        android:autofillHints=""
         android:background="@drawable/bg_edit_text"
         android:ems="10"
         android:hint="Senha:"
@@ -78,9 +101,9 @@
         android:padding="10dp"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/campoEmailCadastro"
-        android:autofillHints=""
         tools:ignore="HardcodedText,VisualLintTextFieldSize" />
 
     <LinearLayout
@@ -88,7 +111,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="1dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -133,10 +155,11 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/botao_cadastrar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         tools:ignore="VisualLintButtonSize" />
@@ -150,6 +173,7 @@
         android:layout_marginEnd="16dp"
         android:text="@string/botao_cancelar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btSalvarProduto"
         tools:ignore="VisualLintButtonSize" />

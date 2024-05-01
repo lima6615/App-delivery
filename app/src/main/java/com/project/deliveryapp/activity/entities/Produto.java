@@ -44,11 +44,11 @@ public class Produto implements Serializable {
         this.price = price;
     }
 
-    public String getUsuarioId() {
+    public String getId() {
         return id;
     }
 
-    public void setUsuarioId(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

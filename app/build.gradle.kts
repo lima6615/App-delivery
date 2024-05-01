@@ -50,4 +50,5 @@ dependencies {
     implementation("at.favre.lib:bcrypt:0.9.0")
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation ("com.squareup.picasso:picasso:2.71828")
+    implementation("com.github.d-max:spots-dialog:0.7@aar")
 }

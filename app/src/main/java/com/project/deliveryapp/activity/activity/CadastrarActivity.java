@@ -35,7 +35,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class CadastrarActivity extends AppCompatActivity {
 
-    private EditText textoNome, textoEmail, textoSenha;
+    private EditText textoNome, textoEmail, textoSenha, textoTelefone;
     private RadioButton radioUsuario, radioEmpresa;
     private Button botaoSalvar, botaoCancelar;
     private Usuario usuario;
@@ -62,6 +62,7 @@ public class CadastrarActivity extends AppCompatActivity {
                 String nome = textoNome.getText().toString();
                 String email = textoEmail.getText().toString();
                 String senha = textoSenha.getText().toString();
+                String telefone = textoTelefone.getText().toString();
                 String tipoConta = null;
 
                 if (radioUsuario.isChecked()) {
@@ -71,9 +72,9 @@ public class CadastrarActivity extends AppCompatActivity {
                 }
 
                 String hashSenha = BCrypt.withDefaults().hashToString(12, senha.toCharArray());
-                usuario = new Usuario(nome, email, hashSenha, tipoConta);
+                usuario = new Usuario(nome, email, telefone, hashSenha, tipoConta);
 
-                if (nome.isEmpty() || email.isEmpty() || senha.isEmpty() || tipoConta.isEmpty()) {
+                if (nome.isEmpty() || email.isEmpty() || telefone.isEmpty() || senha.isEmpty() || tipoConta.isEmpty()) {
 
                     Toast.makeText(CadastrarActivity.this,
                             "Todos os campos são obrigatórios !", Toast.LENGTH_LONG).show();
@@ -95,6 +96,7 @@ public class CadastrarActivity extends AppCompatActivity {
         textoNome = (EditText) findViewById(R.id.campoNomeCadastro);
         textoEmail = (EditText) findViewById(R.id.campoEmailCadastro);
         textoSenha = (EditText) findViewById(R.id.campoSenhaCadastro);
+        textoTelefone = (EditText) findViewById(R.id.campoTelefoneCadastro);
         radioUsuario = (RadioButton) findViewById(R.id.radioUsuario);
         radioEmpresa = (RadioButton) findViewById(R.id.radioEmpresa);
         botaoSalvar = (Button) findViewById(R.id.btSalvarProduto);
@@ -126,7 +128,7 @@ public class CadastrarActivity extends AppCompatActivity {
                             } catch (FirebaseAuthInvalidCredentialsException e) {
                                 error = "Por favor, digite um e-mail valido!";
                             } catch (FirebaseAuthUserCollisionException e) {
-                                error = "Esta conta já foi cadastrafa!";
+                                error = "Esta conta já foi cadastrada!";
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

@@ -134,7 +134,7 @@ public class EmpresaActivity extends AppCompatActivity {
     private void recuperarProdutos() {
 
         firestore.collection("produto")
-                .whereEqualTo("usuarioId", usuarioId)
+                .whereEqualTo("id", usuarioId)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -142,8 +142,7 @@ public class EmpresaActivity extends AppCompatActivity {
                             produtos.clear();
                             for (DocumentSnapshot query : value.getDocuments()) {
                                 Produto produto = new Produto();
-                                //produto.setId(query.getId());
-                                produto.setUsuarioId(query.getId().toString());
+                                produto.setId(query.getId().toString());
                                 produto.setNome(query.get("nome").toString());
                                 produto.setDescricao(query.get("descricao").toString());
                                 produto.setPrice(query.get("price").toString());
@@ -161,7 +160,7 @@ public class EmpresaActivity extends AppCompatActivity {
 
     private void deleteProduto(Produto produto) {
         DocumentReference reference = firestore.collection("produto")
-                .document(produto.getUsuarioId());
+                .document(produto.getId());
         reference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {

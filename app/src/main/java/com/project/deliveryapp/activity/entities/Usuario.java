@@ -6,15 +6,17 @@ public class Usuario implements Serializable {
 
     private String nome;
     private String email;
+    private String telefone;
     private String senha;
     private String tipoConta;
 
     public Usuario() {
     }
 
-    public Usuario(String nome, String email, String senha, String tipoConta) {
+    public Usuario(String nome, String email, String telefone, String senha, String tipoConta) {
         this.nome = nome;
         this.email = email;
+        this.telefone = telefone;
         this.tipoConta = tipoConta;
         this.senha = senha;
     }
@@ -35,6 +37,14 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
     public String getSenha() {
         return senha;
     }
@@ -50,4 +60,5 @@ public class Usuario implements Serializable {
     public void setTipoConta(String tipoConta) {
         this.tipoConta = tipoConta;
     }
+
 }

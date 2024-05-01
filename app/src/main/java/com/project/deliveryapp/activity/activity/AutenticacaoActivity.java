@@ -63,6 +63,14 @@ public class AutenticacaoActivity extends AppCompatActivity {
             }
         });
 
+
+        btAcessar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         btAcessar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

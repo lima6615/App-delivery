@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -42,6 +43,17 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/confirmarPedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/confirmar_pedidos"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="@+id/toolbarCardapio" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -118,6 +130,45 @@
 
             </LinearLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/carrinhoPedidos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/red"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Ver Carrinho"
+                android:textColor="@color/white"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/textCarrinhoQuantidade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="qtd: 0"
+                android:textColor="@color/white"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/textCarrinhoSubTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="R$: 0.00"
+                android:textColor="@color/white"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

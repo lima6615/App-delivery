@@ -6,7 +6,7 @@
     <string name="titulo_novo_produto">Novo Produto</string>
     <string name="titulo_cardapio">Cardápio</string>
     <string name="titulo_empresa_configuracao">Configuração Empresa</string>
-    <string name="titulo_usuario_configuracao">Cadastro de Endereço</string>
+    <string name="titulo_usuario_configuracao">Configuração Usuário</string>
     <string name="titulo_login">LOGIN</string>
     <string name="nome_email">E-mail:</string>
     <string name="nome_senha">Senha:</string>
@@ -17,4 +17,5 @@
     <string name="botao_login">ACESSAR</string>
     <string name="botao_cadastrar">SALVAR</string>
     <string name="botao_cancelar">CANCELAR</string>
+    <string name="confirmar_pedidos">Confirmar Pedidos</string>
 </resources>

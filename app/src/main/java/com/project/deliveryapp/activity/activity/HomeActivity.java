@@ -89,7 +89,7 @@ public class HomeActivity extends AppCompatActivity {
                             startActivity(intent);
                         } else {
                             Toast.makeText(HomeActivity.this,
-                                    "Para realizar pedidos e necessário cadastrar um endereço", Toast.LENGTH_LONG).show();
+                                    "Cadastre um endereço para efetuação de pedidos", Toast.LENGTH_LONG).show();
                         }
                     }
 
