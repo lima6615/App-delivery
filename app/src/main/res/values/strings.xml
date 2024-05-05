@@ -18,4 +18,5 @@
     <string name="botao_cadastrar">SALVAR</string>
     <string name="botao_cancelar">CANCELAR</string>
     <string name="confirmar_pedidos">Confirmar Pedidos</string>
+    <string name="pedido_realizado">Pedido realizado com sucesso</string>
 </resources>

@@ -7,13 +7,14 @@ public class Pedido implements Serializable {
 
     private String idUsuario;
     private String idEmpresa;
+    private Boolean baixaPedido;
     private String nome;
     private String email;
     private String telefone;
     private Endereco endereco;
     private String status;
     private Double taxa;
-    private Integer metodoPagamento;
+    private String metodoPagamento;
     private String observacao;
     private List<ItemPedido> itens;
     private Double valorTotal = 0.0;
@@ -21,11 +22,12 @@ public class Pedido implements Serializable {
     public Pedido() {
     }
 
-    public Pedido(String idUsuario, String idEmpresa, String nome,
+    public Pedido(String idUsuario, String idEmpresa, Boolean baixaPedido, String nome,
                   String email, String telefone, Endereco endereco, String status,
-                  Double taxa, Integer metodoPagamento, String observacao) {
+                  Double taxa, String metodoPagamento, String observacao) {
         this.idUsuario = idUsuario;
         this.idEmpresa = idEmpresa;
+        this.baixaPedido = baixaPedido;
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
@@ -50,6 +52,14 @@ public class Pedido implements Serializable {
 
     public void setIdEmpresa(String idEmpresa) {
         this.idEmpresa = idEmpresa;
+    }
+
+    public Boolean getBaixaPedido() {
+        return baixaPedido;
+    }
+
+    public void setBaixaPedido(Boolean baixaPedido) {
+        this.baixaPedido = baixaPedido;
     }
 
     public String getNome() {
@@ -100,11 +110,11 @@ public class Pedido implements Serializable {
         this.taxa = taxa;
     }
 
-    public Integer getMetodoPagamento() {
+    public String getMetodoPagamento() {
         return metodoPagamento;
     }
 
-    public void setMetodoPagamento(Integer metodoPagamento) {
+    public void setMetodoPagamento(String metodoPagamento) {
         this.metodoPagamento = metodoPagamento;
     }
 

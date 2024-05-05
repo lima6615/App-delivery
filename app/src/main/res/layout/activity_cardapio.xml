@@ -169,6 +169,14 @@
                 android:text="R$: 0.00"
                 android:textColor="@color/white"
                 tools:ignore="HardcodedText" />
+
+            <ImageView
+                android:id="@+id/limparCarrinho"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                app:srcCompat="@drawable/ic_delete_24"
+                tools:ignore="ContentDescription,RtlHardcoded" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
