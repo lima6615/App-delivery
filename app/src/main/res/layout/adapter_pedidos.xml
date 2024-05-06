@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textPedidoNome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Nome do usuario "
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textPedidoEndereco"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Endereço: rua almeida prado, 1300"
+        android:textSize="14sp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textPedidoPgto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pgto: Dinheiro"
+        android:textSize="14sp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textPedidoTaxa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Taxa:  R$ 10.00" />
+
+    <TextView
+        android:id="@+id/textPedidoObs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Obs: teste"
+        android:textSize="14sp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textPedidoItens"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1) X - Tudo (1 X R$ 25.50)"
+        android:textColor="#E32B1D"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
+
+    <include layout="@layout/divisor" />
+
+</LinearLayout>

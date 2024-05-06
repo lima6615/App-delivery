@@ -39,7 +39,7 @@ import java.util.List;
 public class EmpresaActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
-    private ImageView imglogout, imgAdd, imgConfig;
+    private ImageView imglogout, imgAdd, imgConfig, imgListPedidos;
     private AdapterProduto adapterProduto;
     private List<Produto> produtos = new ArrayList<>();
     private RecyclerView recyclerProdutos;
@@ -82,6 +82,13 @@ public class EmpresaActivity extends AppCompatActivity {
             }
         });
 
+        imgListPedidos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                abrirTelaPedidos();
+            }
+        });
+
         initRecyclerView();
         recuperarProdutos();
 
@@ -109,6 +116,7 @@ public class EmpresaActivity extends AppCompatActivity {
         imglogout = (ImageView) findViewById(R.id.imgLogout);
         imgAdd = (ImageView) findViewById(R.id.imageAdd);
         imgConfig = (ImageView) findViewById(R.id.imgConfig);
+        imgListPedidos = (ImageView) findViewById(R.id.imgListPedido);
         recyclerProdutos = (RecyclerView) findViewById(R.id.recyclerProdutos);
     }
 
@@ -174,6 +182,9 @@ public class EmpresaActivity extends AppCompatActivity {
         });
     }
 
+    private void abrirTelaPedidos() {
+        startActivity(new Intent(getApplicationContext(), PedidosActivity.class));
+    }
 
     private void abrirConfiguracoes() {
         startActivity(new Intent(EmpresaActivity.this, ConfiguracaoEmpresaActivity.class));

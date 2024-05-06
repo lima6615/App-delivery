@@ -52,7 +52,6 @@ import java.util.List;
 
 public class CardapioActivity extends AppCompatActivity {
 
-    private static final int SUCCESS = 1;
     private ImageView imgVoltaCardapio;
     private ImageView imgEmpresaCardapio, imgLimparCarrinho;
     private TextView textNomeEmpresaCardapio, textCategoriaEmpresaCardapio, textTempoEmpresaCardapio,
@@ -182,7 +181,7 @@ public class CardapioActivity extends AppCompatActivity {
                             pedido.total();
                             salvarPedido(pedido);
 
-                            showToast(SUCCESS, "Pedido realizado com sucesso");
+                            showToast("Pedido realizado com sucesso");
                         }
                     });
 
@@ -225,7 +224,7 @@ public class CardapioActivity extends AppCompatActivity {
         recyclerProdutosCardapio.setAdapter(adapterProduto);
     }
 
-    private void showToast(int type, String message) {
+    private void showToast(String message) {
         ViewGroup view = findViewById(R.id.container_toast);
         View v = getLayoutInflater().inflate(R.layout.custom_toast, view);
 

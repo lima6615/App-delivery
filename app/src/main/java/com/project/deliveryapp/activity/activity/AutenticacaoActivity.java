@@ -63,14 +63,6 @@ public class AutenticacaoActivity extends AppCompatActivity {
             }
         });
 
-
-        btAcessar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         btAcessar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,7 +136,7 @@ public class AutenticacaoActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("Error", "Erro ao bucar dados do usuario: " + e.getMessage());
+                        Log.d("Error", "Erro ao buscar dados do usuario: " + e.getMessage());
                     }
                 });
     }
