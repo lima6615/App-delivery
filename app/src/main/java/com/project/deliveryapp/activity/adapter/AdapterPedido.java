@@ -15,6 +15,7 @@ import com.project.deliveryapp.activity.entities.Endereco;
 import com.project.deliveryapp.activity.entities.ItemPedido;
 import com.project.deliveryapp.activity.entities.Pedido;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class AdapterPedido extends RecyclerView.Adapter<AdapterPedido.MyViewHolder> {
@@ -35,10 +36,12 @@ public class AdapterPedido extends RecyclerView.Adapter<AdapterPedido.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
+        DecimalFormat df = new DecimalFormat("0.00");
         Pedido pedido = pedidos.get(position);
         holder.nomeUsuario.setText(pedido.getNome());
         holder.metodoPagamento.setText("Pgto: " + pedido.getMetodoPagamento());
-        holder.taxa.setText("Taxa: R$ " + pedido.getTaxa());
+        holder.taxa.setText("Taxa: R$ " + df.format(pedido.getTaxa()));
         holder.observacao.setText("Obs: " + pedido.getObservacao());
 
         Endereco endereco = pedido.getEndereco();
@@ -49,13 +52,20 @@ public class AdapterPedido extends RecyclerView.Adapter<AdapterPedido.MyViewHold
         List<ItemPedido> itens = pedido.getItens();
         String descricaoItens = "";
 
+        double somar = 0.0;
         int numeroItem = 1;
         for (ItemPedido itemPedido : itens) {
-            String nome = itemPedido.getNomeProduto();
-            descricaoItens += numeroItem + ") " + nome + " / (" + itemPedido.getQuantidade() + " x R$ " + itemPedido.getPreco() + ") \n";
-            descricaoItens += "Total: R$ " + itemPedido.subTotal();
-            numeroItem++;
+
+            if (itemPedido.equals(holder.itemPedido.getText())) {
+                itens.remove(itemPedido);
+            } else {
+                String nome = itemPedido.getNomeProduto();
+                descricaoItens += numeroItem + ") " + nome + " / (" + itemPedido.getQuantidade() + " x R$ " + df.format(itemPedido.getPreco()) + ") \n";
+                somar += itemPedido.subTotal() + pedido.getTaxa();
+                numeroItem++;
+            }
         }
+        descricaoItens += "Total: R$ " + df.format(somar) + " (C/Taxa)" + "\n";
         holder.itemPedido.setText(descricaoItens);
     }
 

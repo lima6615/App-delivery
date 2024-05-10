@@ -148,8 +148,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="Ver Carrinho"
+                android:text="Carrinho:"
                 android:textColor="@color/white"
+                android:textStyle="bold"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -159,6 +160,7 @@
                 android:padding="8dp"
                 android:text="qtd: 0"
                 android:textColor="@color/white"
+                android:textStyle="bold"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -168,13 +170,23 @@
                 android:padding="8dp"
                 android:text="R$: 0.00"
                 android:textColor="@color/white"
+                android:textStyle="bold"
                 tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/textCarrinhoTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/valorTotalCarrinho"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/limparCarrinho"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 app:srcCompat="@drawable/ic_delete_24"
                 tools:ignore="ContentDescription,RtlHardcoded" />
         </LinearLayout>

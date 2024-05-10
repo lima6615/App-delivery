@@ -20,4 +20,5 @@
     <string name="botao_cancelar">CANCELAR</string>
     <string name="confirmar_pedidos">Confirmar Pedidos</string>
     <string name="pedido_realizado">Pedido realizado com sucesso</string>
+    <string name="valorTotalCarrinho">Total: R$ 0.00</string>
 </resources>

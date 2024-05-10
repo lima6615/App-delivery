@@ -3,9 +3,14 @@ package com.project.deliveryapp.activity.activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -14,6 +19,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -23,6 +33,7 @@ import com.project.deliveryapp.R;
 import com.project.deliveryapp.activity.adapter.AdapterPedido;
 import com.project.deliveryapp.activity.config.FirebaseConfig;
 import com.project.deliveryapp.activity.entities.Pedido;
+import com.project.deliveryapp.activity.listener.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +45,7 @@ public class PedidosActivity extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private AdapterPedido adapterPedido;
     private String idUsuario = "";
+    private String idPedido = "";
     private List<Pedido> pedidos = new ArrayList<>();
 
 
@@ -61,6 +73,29 @@ public class PedidosActivity extends AppCompatActivity {
         });
 
         recuperarPedidos();
+
+        recyclerPedidos.addOnItemTouchListener(
+                new RecyclerItemClickListener(this, recyclerPedidos,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                            }
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+                                Pedido pedido = pedidos.get(position);
+                                pedido.setStatus("Finalizado");
+                                pedido.setBaixaPedido(true);
+                                finalizarPedido(pedido);
+                                showToast("Pedido Finalizado com sucesso");
+                            }
+
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                            }
+                        }));
+
     }
 
     private void inicializacaoComponentes() {
@@ -77,16 +112,62 @@ public class PedidosActivity extends AppCompatActivity {
         recyclerPedidos.setAdapter(adapterPedido);
     }
 
+    private void showToast(String message) {
+        ViewGroup view = findViewById(R.id.container_toast);
+        View v = getLayoutInflater().inflate(R.layout.custom_toast, view);
+
+        TextView txtMessage = v.findViewById(R.id.textMessagem);
+        txtMessage.setText(message);
+
+        Toast toast = new Toast(this);
+        toast.setView(v);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    private void finalizarPedido(Pedido pedido) {
+
+        firestore.collection("historicoPedidos")
+                .add(pedido).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("DbPedido", "Sucesso ao Salvar Pedido: " + task.getResult());
+                            pedidos.clear();
+                            deletarPedido();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DB", "Falha ao salvo dados do pediso: " + e.getMessage());
+                    }
+                });
+    }
+
+    private void deletarPedido() {
+        firestore.collection("pedido")
+                .document(idPedido)
+                .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("PedidoDelete", "Pedido Deletado: " + idPedido);
+                    }
+                });
+    }
+
     private void recuperarPedidos() {
 
         firestore.collection("pedido")
+                .whereEqualTo("idEmpresa", idUsuario)
                 .whereEqualTo("baixaPedido", false)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         if (!value.isEmpty()) {
                             for (DocumentSnapshot query : value) {
-                                Log.d("ListaPedido", "lista de pedidos " + query.get("itens"));
+                                Log.d("ListaPedido", "lista de pedidos " + query.getData());
+                                idPedido = query.getId();
                                 Pedido pedido = query.toObject(Pedido.class);
                                 pedidos.add(pedido);
                             }

@@ -55,11 +55,12 @@ public class CardapioActivity extends AppCompatActivity {
     private ImageView imgVoltaCardapio;
     private ImageView imgEmpresaCardapio, imgLimparCarrinho;
     private TextView textNomeEmpresaCardapio, textCategoriaEmpresaCardapio, textTempoEmpresaCardapio,
-            textEntregaEmpresaCardapio, confirmarPedido, textQuantidade, textSubTotal;
+            textEntregaEmpresaCardapio, confirmarPedido, textQuantidade, textSubTotal, textCarrinhoTotal;
     private RecyclerView recyclerProdutosCardapio;
     private Empresa empresaSelecionado;
     private AdapterProduto adapterProduto;
     private Pedido pedido;
+    private Double total = 0.0;
     private String idUsuario;
     private String metodoPagamento;
     private Usuario usuarioRecuperado;
@@ -125,12 +126,10 @@ public class CardapioActivity extends AppCompatActivity {
 
                             @Override
                             public void onLongItemClick(View view, int position) {
-
                             }
 
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
                             }
                         }
                 ));
@@ -211,6 +210,7 @@ public class CardapioActivity extends AppCompatActivity {
         textEntregaEmpresaCardapio = (TextView) findViewById(R.id.textEntregaEmpresaCardapio);
         textQuantidade = (TextView) findViewById(R.id.textCarrinhoQuantidade);
         textSubTotal = (TextView) findViewById(R.id.textCarrinhoSubTotal);
+        textCarrinhoTotal = (TextView) findViewById(R.id.textCarrinhoTotal);
         confirmarPedido = (TextView) findViewById(R.id.confirmarPedido);
         recyclerProdutosCardapio = (RecyclerView) findViewById(R.id.recyclerProdutosCardapio);
     }
@@ -275,6 +275,9 @@ public class CardapioActivity extends AppCompatActivity {
                     DecimalFormat df = new DecimalFormat("0.00");
                     somar += pedido.subTotal();
                     textSubTotal.setText("R$: " + df.format(somar));
+
+                    total = somar + Double.parseDouble(empresaSelecionado.getTaxa());
+                    textCarrinhoTotal.setText("Total: R$ " + df.format(total));
                 }
             }
         });
@@ -293,6 +296,7 @@ public class CardapioActivity extends AppCompatActivity {
         }
         textQuantidade.setText("qtd: 0");
         textSubTotal.setText("R$: 0.00");
+        textCarrinhoTotal.setText("Total: R$ 0.00");
     }
 
     private void recuperarDadosUsuario() {
