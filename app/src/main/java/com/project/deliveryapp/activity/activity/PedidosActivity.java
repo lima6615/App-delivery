@@ -87,6 +87,7 @@ public class PedidosActivity extends AppCompatActivity {
                                 pedido.setStatus("Finalizado");
                                 pedido.setBaixaPedido(true);
                                 finalizarPedido(pedido);
+                                pedidos.clear();
                                 showToast("Pedido Finalizado com sucesso");
                             }
 
@@ -133,7 +134,6 @@ public class PedidosActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentReference> task) {
                         if (task.isSuccessful()) {
                             Log.d("DbPedido", "Sucesso ao Salvar Pedido: " + task.getResult());
-                            pedidos.clear();
                             deletarPedido();
                         }
                     }
