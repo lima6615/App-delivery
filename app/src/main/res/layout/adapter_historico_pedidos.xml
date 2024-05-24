@@ -10,11 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Nome do usuario "
+        android:text="Nome da empresa"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="16sp"
         android:textStyle="bold"
         tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textHistoricoData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Data: 15/04/2024" />
 
     <TextView
         android:id="@+id/textHistoricoEndereco"
@@ -36,14 +42,22 @@
         android:id="@+id/textHistoricoTaxa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Taxa:  R$ 10.00" />
+        android:text="Taxa:  R$ 10.00"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textHistoricoValorTotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ValorTotal: R$ 30.00"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/textHistoricoStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Obs: teste"
+        android:text="Status: Finalizado"
         android:textSize="14sp"
         tools:ignore="HardcodedText" />
 

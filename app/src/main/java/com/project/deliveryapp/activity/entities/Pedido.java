@@ -1,12 +1,14 @@
 package com.project.deliveryapp.activity.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 public class Pedido implements Serializable {
 
     private String idUsuario;
     private String idEmpresa;
+    private String data;
     private Boolean baixaPedido;
     private String nome;
     private String email;
@@ -52,6 +54,14 @@ public class Pedido implements Serializable {
 
     public void setIdEmpresa(String idEmpresa) {
         this.idEmpresa = idEmpresa;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 
     public Boolean getBaixaPedido() {

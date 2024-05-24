@@ -8,9 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.project.deliveryapp.R;
-import com.project.deliveryapp.activity.config.FirebaseConfig;
 import com.project.deliveryapp.activity.entities.Endereco;
 import com.project.deliveryapp.activity.entities.ItemPedido;
 import com.project.deliveryapp.activity.entities.Pedido;
@@ -18,19 +16,19 @@ import com.project.deliveryapp.activity.entities.Pedido;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class AdapterPedido extends RecyclerView.Adapter<AdapterPedido.MyViewHolder> {
-    private FirebaseFirestore firestore = FirebaseConfig.getFirestore();
-    private List<Pedido> pedidos;
+public class AdapterHistoricoPedido extends RecyclerView.Adapter<AdapterHistoricoPedido.MyViewHolder> {
 
-    public AdapterPedido(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
+    private List<Pedido> Historicopedidos;
+
+    public AdapterHistoricoPedido(List<Pedido> Historicopedidos) {
+        this.Historicopedidos = Historicopedidos;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemLista = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adapter_pedidos, parent, false);
+                .inflate(R.layout.adapter_historico_pedidos, parent, false);
         return new MyViewHolder(itemLista);
     }
 
@@ -38,16 +36,18 @@ public class AdapterPedido extends RecyclerView.Adapter<AdapterPedido.MyViewHold
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         DecimalFormat df = new DecimalFormat("0.00");
-        Pedido pedido = pedidos.get(position);
-        holder.nomeUsuario.setText(pedido.getNome());
-        holder.metodoPagamento.setText("Pgto: " + pedido.getMetodoPagamento());
+        Pedido pedido = Historicopedidos.get(position);
+        holder.nomeEmpresa.setText(pedido.getNome());
+        holder.data.setText("Data: " + pedido.getData());
+        holder.metodoPagamentoPedido.setText("Pgto: " + pedido.getMetodoPagamento());
         holder.taxa.setText("Taxa: R$ " + df.format(pedido.getTaxa()));
-        holder.observacao.setText("Obs: " + pedido.getObservacao());
+        holder.valorTotal.setText("ValorTotal: R$ " + df.format(pedido.getValorTotal()));
+        holder.status.setText("Status: " + pedido.getStatus());
 
         Endereco endereco = pedido.getEndereco();
         String enderecoUsuario = "Endereço: " + endereco.getBairro() + " - " + endereco.getCidade() + " , Rua: "
                 + endereco.getRua();
-        holder.endereco.setText(enderecoUsuario);
+        holder.enderecoUsuario.setText(enderecoUsuario);
 
         List<ItemPedido> itens = pedido.getItens();
         String descricaoItens = "";
@@ -56,7 +56,7 @@ public class AdapterPedido extends RecyclerView.Adapter<AdapterPedido.MyViewHold
         int numeroItem = 1;
         for (ItemPedido itemPedido : itens) {
 
-            if (itemPedido.equals(holder.itemPedido.getText())) {
+            if (itemPedido.equals(holder.itensPedidos.getText())) {
                 itens.remove(itemPedido);
             } else {
                 String nome = itemPedido.getNomeProduto();
@@ -65,31 +65,35 @@ public class AdapterPedido extends RecyclerView.Adapter<AdapterPedido.MyViewHold
                 numeroItem++;
             }
         }
-        descricaoItens += "Total: R$ " + df.format(somar) + " (C/Taxa)" + "\n";
-        holder.itemPedido.setText(descricaoItens);
+        //descricaoItens += "Total: R$ " + df.format(somar) + " (C/Taxa)" + "\n";
+        holder.itensPedidos.setText(descricaoItens);
     }
 
     @Override
     public int getItemCount() {
-        return pedidos.size();
+        return Historicopedidos.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView nomeUsuario;
-        TextView endereco;
-        TextView metodoPagamento;
+        TextView nomeEmpresa;
+        TextView enderecoUsuario;
+        TextView data;
+        TextView metodoPagamentoPedido;
         TextView taxa;
-        TextView observacao;
-        TextView itemPedido;
+        TextView valorTotal;
+        TextView status;
+        TextView itensPedidos;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            nomeUsuario = itemView.findViewById(R.id.textHistoricoNomeEmpresa);
-            endereco = itemView.findViewById(R.id.textHistoricoEndereco);
-            metodoPagamento = itemView.findViewById(R.id.textHistoricoPgto);
+            nomeEmpresa = itemView.findViewById(R.id.textHistoricoNomeEmpresa);
+            enderecoUsuario = itemView.findViewById(R.id.textHistoricoEndereco);
+            data = itemView.findViewById(R.id.textHistoricoData);
+            metodoPagamentoPedido = itemView.findViewById(R.id.textHistoricoPgto);
             taxa = itemView.findViewById(R.id.textHistoricoTaxa);
-            observacao = itemView.findViewById(R.id.textHistoricoStatus);
-            itemPedido = itemView.findViewById(R.id.textHistoricoPedidoItens);
+            valorTotal = itemView.findViewById(R.id.textHistoricoValorTotal);
+            status = itemView.findViewById(R.id.textHistoricoStatus);
+            itensPedidos = itemView.findViewById(R.id.textHistoricoPedidoItens);
         }
     }
 }

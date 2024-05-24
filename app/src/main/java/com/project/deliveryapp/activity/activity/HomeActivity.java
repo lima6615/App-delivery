@@ -37,7 +37,7 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private ImageView imgLogoutHome, imgConfigHome;
+    private ImageView imgLogoutHome, imgConfigHome, imgHistoricoPedidos;
     private RecyclerView recyclerEmpresas;
     private List<Empresa> empresas = new ArrayList<>();
     private AdapterEmpresa adapterEmpresa;
@@ -61,6 +61,14 @@ public class HomeActivity extends AppCompatActivity {
         idUsuario = FirebaseConfig.getIdUsuario();
         inicializacaoComponentes();
         initRecyclerView();
+
+        imgHistoricoPedidos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                abrirTelaHistoricoUsuario();
+            }
+        });
+
         imgLogoutHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,6 +115,7 @@ public class HomeActivity extends AppCompatActivity {
     private void inicializacaoComponentes() {
         imgLogoutHome = (ImageView) findViewById(R.id.imgLogoutHome);
         imgConfigHome = (ImageView) findViewById(R.id.imgConfigHome);
+        imgHistoricoPedidos = (ImageView) findViewById(R.id.imgHistoricoPedido);
         recyclerEmpresas = (RecyclerView) findViewById(R.id.recyclerEmpresa);
     }
 
@@ -182,5 +191,9 @@ public class HomeActivity extends AppCompatActivity {
 
     private void abrirTelaConfiguracaoUsuario() {
         startActivity(new Intent(HomeActivity.this, ConfiguracaoUsuarioActivity.class));
+    }
+
+    private void abrirTelaHistoricoUsuario() {
+        startActivity(new Intent(HomeActivity.this, HistoricoPedidosActivity.class));
     }
 }

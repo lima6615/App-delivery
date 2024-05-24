@@ -35,11 +35,15 @@ import com.project.deliveryapp.activity.config.FirebaseConfig;
 import com.project.deliveryapp.activity.entities.Pedido;
 import com.project.deliveryapp.activity.listener.RecyclerItemClickListener;
 
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PedidosActivity extends AppCompatActivity {
 
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private ImageView imgVoltaPedido;
     private RecyclerView recyclerPedidos;
     private FirebaseFirestore firestore;
@@ -83,9 +87,12 @@ public class PedidosActivity extends AppCompatActivity {
 
                             @Override
                             public void onLongItemClick(View view, int position) {
+
+                                String data = sdf.format(new Date());
                                 Pedido pedido = pedidos.get(position);
                                 pedido.setStatus("Finalizado");
                                 pedido.setBaixaPedido(true);
+                                pedido.setData(data);
                                 finalizarPedido(pedido);
                                 pedidos.clear();
                                 showToast("Pedido Finalizado com sucesso");

@@ -5,75 +5,79 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.activity.HomeActivity">
+    tools:context=".activity.activity.HistoricoPedidosActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarHome"
+        android:id="@+id/toobarHistoricoPedido"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
-        android:text="@string/titulo_cliente"
+        android:text="@string/titulo_historico_pedidos"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/toobarHistoricoPedido"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imgHistoricoPedido"
+        android:id="@+id/imgVoltarHistoricoPedido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/imgConfigHome"
-        app:layout_constraintTop_toTopOf="@id/toolbarHome"
-        app:srcCompat="@drawable/ic_pedidos_24" />
-
-    <ImageView
-        android:id="@+id/imgConfigHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/imgLogoutHome"
-        app:layout_constraintTop_toTopOf="@id/toolbarHome"
-        app:srcCompat="@drawable/ic_settings_24" />
-
-    <ImageView
-        android:id="@+id/imgLogoutHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="@id/toolbarHome"
-        app:layout_constraintTop_toTopOf="@id/toolbarHome"
-        app:srcCompat="@drawable/ic_logout_24"
+        app:layout_constraintEnd_toEndOf="@id/toobarHistoricoPedido"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="@id/toobarHistoricoPedido"
+        app:layout_constraintTop_toTopOf="@id/toobarHistoricoPedido"
+        app:srcCompat="@drawable/ic_arrow_back_24"
         tools:ignore="ContentDescription" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerEmpresa"
-        android:layout_width="match_parent"
+        android:id="@+id/recyclerHistorico"
+        android:layout_width="379dp"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="135dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/bg_edit_text"
+        android:ems="10"
+        android:hint="Informe uma data"
+        android:inputType="date"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:textColorHint="#78909C"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toobarHistoricoPedido"
+        tools:ignore="HardcodedText,VisualLintTextFieldSize"
+        android:autofillHints="" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
