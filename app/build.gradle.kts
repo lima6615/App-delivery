@@ -51,4 +51,5 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation ("com.squareup.picasso:picasso:2.71828")
     implementation("com.github.d-max:spots-dialog:0.7@aar")
+    implementation("com.github.santalu:maskara:1.0.0")
 }

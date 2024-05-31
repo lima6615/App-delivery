@@ -44,7 +44,7 @@
         tools:ignore="Autofill,HardcodedText,VisualLintTextFieldSize" />
 
 
-    <EditText
+    <com.santalu.maskara.widget.MaskEditText
         android:id="@+id/campoTelefoneCadastro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -54,10 +54,13 @@
         android:background="@drawable/bg_edit_text"
         android:ems="10"
         android:hint="Telefone:"
-        android:inputType="text"
+        android:inputType="number"
         android:minHeight="48dp"
         android:padding="10dp"
         android:textSize="20sp"
+        app:mask="(__) _____ - ____"
+        app:maskCharacter="_"
+        app:maskStyle="completable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -134,6 +137,8 @@
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="16sp"
+                android:textStyle="bold"
+                android:buttonTint="@color/red"
                 tools:ignore="HardcodedText" />
 
             <RadioButton
@@ -146,22 +151,67 @@
                 android:textAlignment="viewStart"
                 android:textColor="@color/white"
                 android:textSize="16sp"
+                android:textStyle="bold"
+                android:buttonTint="@color/white"
                 tools:ignore="HardcodedText" />
         </RadioGroup>
+
     </LinearLayout>
+
+    <com.santalu.maskara.widget.MaskEditText
+        android:id="@+id/campoCpfCadastro"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/bg_edit_text"
+        android:ems="10"
+        android:hint="CPF:"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:mask="___.___.___ - __"
+        app:maskCharacter="_"
+        app:maskStyle="completable" />
+
+    <com.santalu.maskara.widget.MaskEditText
+        android:id="@+id/campoCnpjCadastro"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/bg_edit_text"
+        android:ems="10"
+        android:hint="CNPJ:"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/campoCpfCadastro"
+        app:mask="__.___.___ / ____ - __"
+        app:maskCharacter="_"
+        app:maskStyle="completable" />
 
     <Button
         android:id="@+id/btSalvarProduto"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="16dp"
         android:text="@string/botao_cadastrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/campoCnpjCadastro"
         tools:ignore="VisualLintButtonSize" />
 
     <Button
@@ -173,7 +223,7 @@
         android:layout_marginEnd="16dp"
         android:text="@string/botao_cancelar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btSalvarProduto"
         tools:ignore="VisualLintButtonSize" />

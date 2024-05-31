@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -30,15 +31,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.project.deliveryapp.R;
 import com.project.deliveryapp.activity.config.FirebaseConfig;
 import com.project.deliveryapp.activity.entities.Usuario;
+import com.santalu.maskara.widget.MaskEditText;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class CadastrarActivity extends AppCompatActivity {
 
-    private EditText textoNome, textoEmail, textoSenha, textoTelefone;
+    private EditText textoNome, textoEmail, textoSenha;
+    private MaskEditText textoTelefone, textoCpf, textoCnpj;
+    private RadioGroup radioGroup;
     private RadioButton radioUsuario, radioEmpresa;
     private Button botaoSalvar, botaoCancelar;
     private Usuario usuario;
+    private String cpfCnpj = "";
+    private String tipoConta = null;
     private FirebaseFirestore firestore;
     private FirebaseAuth firebaseAuth;
 
@@ -55,6 +61,22 @@ public class CadastrarActivity extends AppCompatActivity {
 
         inicializacaoComponentes();
 
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedID) {
+                RadioButton radioSelect = findViewById(checkedID);
+                if (radioSelect.getId() == R.id.radioUsuario) {
+                    textoCnpj.setEnabled(false);
+                    textoCpf.setEnabled(true);
+                    tipoConta = "usuario";
+                } else {
+                    textoCnpj.setEnabled(true);
+                    textoCpf.setEnabled(false);
+                    tipoConta = "empresa";
+                }
+            }
+        });
+
         botaoSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,24 +84,43 @@ public class CadastrarActivity extends AppCompatActivity {
                 String nome = textoNome.getText().toString();
                 String email = textoEmail.getText().toString();
                 String senha = textoSenha.getText().toString();
-                String telefone = textoTelefone.getText().toString();
-                String tipoConta = null;
+                String telefone = "";
 
-                if (radioUsuario.isChecked()) {
-                    tipoConta = "usuario";
-                } else if (radioEmpresa.isChecked()) {
-                    tipoConta = "empresa";
+                boolean telefoneValid = textoTelefone.isDone();
+                if (telefoneValid) {
+                    telefone = textoTelefone.getMasked();
+                } else {
+                    Toast.makeText(CadastrarActivity.this,
+                            "Informe telefone válido.", Toast.LENGTH_LONG).show();
                 }
 
-                String hashSenha = BCrypt.withDefaults().hashToString(12, senha.toCharArray());
-                usuario = new Usuario(nome, email, telefone, hashSenha, tipoConta);
+                if (tipoConta == "usuario") {
+                    boolean isDone = textoCpf.isDone();
+                    if (isDone) {
+                        cpfCnpj = textoCpf.getMasked();
+                    } else {
+                        Toast.makeText(CadastrarActivity.this,
+                                "Informe CPF válido.", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    boolean isDone = textoCnpj.isDone();
+                    if (isDone) {
+                        cpfCnpj = textoCnpj.getMasked();
+                    } else {
+                        Toast.makeText(CadastrarActivity.this,
+                                "Informe CNPJ válido.", Toast.LENGTH_LONG).show();
+                    }
+                }
 
                 if (nome.isEmpty() || email.isEmpty() || telefone.isEmpty() || senha.isEmpty() || tipoConta.isEmpty()) {
-
                     Toast.makeText(CadastrarActivity.this,
                             "Todos os campos são obrigatórios !", Toast.LENGTH_LONG).show();
                 } else {
-                    cadastrarUsuario(usuario.getEmail(), senha);
+                    if (!cpfCnpj.isEmpty() && !telefone.isEmpty()) {
+                        String hashSenha = BCrypt.withDefaults().hashToString(12, senha.toCharArray());
+                        usuario = new Usuario(nome, email, telefone, hashSenha, tipoConta, cpfCnpj);
+                        cadastrarUsuario(usuario.getEmail(), senha);
+                    }
                 }
             }
         });
@@ -96,7 +137,10 @@ public class CadastrarActivity extends AppCompatActivity {
         textoNome = (EditText) findViewById(R.id.campoNomeCadastro);
         textoEmail = (EditText) findViewById(R.id.campoEmailCadastro);
         textoSenha = (EditText) findViewById(R.id.campoSenhaCadastro);
-        textoTelefone = (EditText) findViewById(R.id.campoTelefoneCadastro);
+        textoTelefone = (MaskEditText) findViewById(R.id.campoTelefoneCadastro);
+        textoCpf = (MaskEditText) findViewById(R.id.campoCpfCadastro);
+        textoCnpj = (MaskEditText) findViewById(R.id.campoCnpjCadastro);
+        radioGroup = (RadioGroup) findViewById(R.id.radioTipoConta);
         radioUsuario = (RadioButton) findViewById(R.id.radioUsuario);
         radioEmpresa = (RadioButton) findViewById(R.id.radioEmpresa);
         botaoSalvar = (Button) findViewById(R.id.btSalvarProduto);

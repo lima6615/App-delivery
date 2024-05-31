@@ -9,16 +9,18 @@ public class Usuario implements Serializable {
     private String telefone;
     private String senha;
     private String tipoConta;
+    private String cpfCnpj;
 
     public Usuario() {
     }
 
-    public Usuario(String nome, String email, String telefone, String senha, String tipoConta) {
+    public Usuario(String nome, String email, String telefone, String senha, String tipoConta, String cpfCnpj) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.tipoConta = tipoConta;
         this.senha = senha;
+        this.cpfCnpj = cpfCnpj;
     }
 
     public String getNome() {
@@ -61,4 +63,11 @@ public class Usuario implements Serializable {
         this.tipoConta = tipoConta;
     }
 
+    public String getCpfCnpj() {
+        return cpfCnpj;
+    }
+
+    public void setCpfCnpj(String cpfCnpj) {
+        this.cpfCnpj = cpfCnpj;
+    }
 }
