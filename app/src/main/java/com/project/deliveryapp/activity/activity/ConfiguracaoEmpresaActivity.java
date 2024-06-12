@@ -1,6 +1,8 @@
 package com.project.deliveryapp.activity.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +18,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -38,6 +42,7 @@ import java.io.ByteArrayOutputStream;
 
 public class ConfiguracaoEmpresaActivity extends AppCompatActivity {
 
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     private EditText editEmpresaNome, editEmpresaCategoria, editEmpresaTempo, editEmpresaTaxa;
     private Button botaoSalvarEmpresa;
     private ImageView imagePerfilEmpresa, imageVoltar;
@@ -68,6 +73,15 @@ public class ConfiguracaoEmpresaActivity extends AppCompatActivity {
                 abrirTelaHome();
             }
         });
+
+
+        if (ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+        }
 
         imagePerfilEmpresa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,15 +141,10 @@ public class ConfiguracaoEmpresaActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == SELECAO_GALERIA) {
-            Bitmap imagem = null;
 
             try {
-                switch (requestCode) {
-                    case SELECAO_GALERIA:
-                        Uri localImagem = data.getData();
-                        imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagem);
-                        break;
-                }
+                Uri localImagem = data.getData();
+                Bitmap imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagem);
 
                 if (imagem != null) {
                     imagePerfilEmpresa.setImageBitmap(imagem);
@@ -173,7 +182,6 @@ public class ConfiguracaoEmpresaActivity extends AppCompatActivity {
                         }
                     });
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -132,8 +132,8 @@ public class HistoricoPedidosActivity extends AppCompatActivity {
                         }
 
                         if (value != null && !value.isEmpty()) {
-                            historicoPedidos.clear();
 
+                            historicoPedidos.clear();
                             for (DocumentSnapshot document : value.getDocuments()) {
                                 Pedido pedido = document.toObject(Pedido.class);
                                 pedido.setNome("");

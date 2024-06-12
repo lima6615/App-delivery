@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -23,7 +24,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.project.deliveryapp.R;
 import com.project.deliveryapp.activity.adapter.AdapterEmpresa;
@@ -140,14 +143,14 @@ public class HomeActivity extends AppCompatActivity {
 
     private void recuperarEmpresas() {
 
-        firestore.collection("empresa").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firestore.collection("empresa")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("DB", "Dados de empresa: " + task.getResult());
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (!value.isEmpty()) {
+                            Log.d("DB", "Dados de empresa: " + value.getDocuments());
                             empresas.clear();
-                            for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                            for (DocumentSnapshot documentSnapshot : value.getDocuments()) {
                                 Empresa empresa = new Empresa();
                                 empresa.setIdUsuario(documentSnapshot.get("idUsuario").toString());
                                 empresa.setNome(documentSnapshot.get("nome").toString());

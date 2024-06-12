@@ -172,6 +172,7 @@ public class PedidosActivity extends AppCompatActivity {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         if (!value.isEmpty()) {
+                            pedidos.clear();
                             for (DocumentSnapshot query : value) {
                                 Log.d("ListaPedido", "lista de pedidos " + query.getData());
                                 idPedido = query.getId();
