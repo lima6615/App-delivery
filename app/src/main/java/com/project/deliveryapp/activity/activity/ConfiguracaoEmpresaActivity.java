@@ -50,7 +50,7 @@ public class ConfiguracaoEmpresaActivity extends AppCompatActivity {
     private StorageReference storageReference;
     private FirebaseFirestore firestore;
     private String usuarioId = null;
-    private String urlImagemSelecionada = "";
+    private String urlImagemSelecionada = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -220,7 +220,7 @@ public class ConfiguracaoEmpresaActivity extends AppCompatActivity {
                             editEmpresaTempo.setText(task.getResult().getString("tempo"));
                             urlImagemSelecionada = task.getResult().getString("urlImagem");
 
-                            if (urlImagemSelecionada != "") {
+                            if (urlImagemSelecionada != null) {
                                 Picasso.get().load(urlImagemSelecionada).into(imagePerfilEmpresa);
                             }
                         }
